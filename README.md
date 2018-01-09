@@ -1,0 +1,2 @@
+# NLog
+Adapter for NLog 
