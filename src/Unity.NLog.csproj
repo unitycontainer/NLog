@@ -1,0 +1,51 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\package.props" />
+
+  <PropertyGroup>
+    <FileVersion>$(Version).0</FileVersion>
+    <AssemblyVersion>$(Version).0</AssemblyVersion>
+    <PackageId>Unity.NLog</PackageId>
+    <Description>Unity adapter for NLog</Description>
+    <Copyright>Copyright © Microsoft.Practices.Unity 2008</Copyright>
+    <PackageProjectUrl>https://github.com/unitycontainer/NLog</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/unitycontainer/NLog</RepositoryUrl>
+    <PackageLicenseUrl>https://github.com/unitycontainer/NLog/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageIconUrl>https://avatars1.githubusercontent.com/u/12849707</PackageIconUrl>
+    <PackageTags>Unity Container unitycontainer Microsoft.Practices.Unity IoC NLog</PackageTags>
+    <RepositoryType>git</RepositoryType>
+    <Authors>Microsoft.Practices.Unity</Authors>
+    <Company>Microsoft.Practices.Unity</Company>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>package.snk</AssemblyOriginatorKeyFile>
+    <DelaySign>false</DelaySign>
+    <RootNamespace>Unity.NLog</RootNamespace>
+    <UnityAbstractions>..\..\Abstractions\src\Unity.Abstractions.csproj</UnityAbstractions>
+  </PropertyGroup>
+  
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <TargetFrameworks>net45;net47</TargetFrameworks>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <TargetFramework>net45</TargetFramework>
+    <DebugType>Full</DebugType>
+  </PropertyGroup>
+
+  <ItemGroup Condition="Exists('$(UnityAbstractions)')">
+    <ProjectReference Include="$(UnityAbstractions)" />
+  </ItemGroup>
+
+  <ItemGroup Condition="!Exists('$(UnityAbstractions)')">
+    <PackageReference Include="Unity.Abstractions" Version="$(UnityAbstractionsVersion)" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <PackageReference Include="NLog" Version="4.4.12" />
+  </ItemGroup>
+
+
+</Project>
