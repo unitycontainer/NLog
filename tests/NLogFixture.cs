@@ -18,13 +18,17 @@ namespace NLog.Tests
             _instance = _container.Resolve<LoggedType>();
         }
 
-
         [TestMethod]
         public void NLog_can_resolve_test_type()
         {
             Assert.IsNotNull(_instance);
             Assert.IsNotNull(_instance.ResolvedLogger);
             Assert.IsNotNull(_instance.StaticLogger);
+        }
+
+        [TestMethod]
+        public void NLog_same_name()
+        {
             Assert.AreSame(_instance.ResolvedLogger, _instance.StaticLogger);
         }
 
