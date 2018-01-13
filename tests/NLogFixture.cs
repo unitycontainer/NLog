@@ -22,28 +22,24 @@ namespace NLog.Tests
         public void NLog_can_resolve_test_type()
         {
             Assert.IsNotNull(_instance);
-            Assert.IsNotNull(_instance.ResolvedLogger);
-            Assert.IsNotNull(_instance.StaticLogger);
+            Assert.IsNotNull(_instance.Logger);
         }
 
         [TestMethod]
         public void NLog_same_name()
         {
-            Assert.AreSame(_instance.ResolvedLogger, _instance.StaticLogger);
+            Assert.AreSame(LogManager.GetLogger(typeof(LoggedType).FullName), 
+                           _instance.Logger);
         }
 
         public class LoggedType
         {
             public LoggedType(ILogger log)
             {
-                ResolvedLogger = log;
-                StaticLogger = LogManager.GetCurrentClassLogger();
+                Logger = log;
             }
 
-            public ILogger ResolvedLogger { get; }
-
-
-            public ILogger StaticLogger { get; }
+            public ILogger Logger { get; }
         }
     }
 }
