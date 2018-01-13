@@ -17,6 +17,27 @@
     <ProjectReference Include="..\src\Unity.NLog.csproj" />
   </ItemGroup>
   
+  <PropertyGroup>
+    <UnityAbstractions>..\..\Abstractions\src\Unity.Abstractions.csproj</UnityAbstractions>
+    <UnityContainer>..\..\Container\src\Unity.Container.csproj</UnityContainer>
+  </PropertyGroup>
+
+  <ItemGroup Condition="Exists('$(UnityAbstractions)')">
+    <ProjectReference Include="$(UnityAbstractions)" />
+  </ItemGroup>
+
+  <ItemGroup Condition="Exists('$(UnityContainer)')">
+    <ProjectReference Include="$(UnityContainer)" />
+  </ItemGroup>
+
+  <ItemGroup Condition="!Exists('$(UnityAbstractions)')">
+    <PackageReference Include="Unity.Abstractions" Version="$(UnityAbstractionsVersion)" />
+  </ItemGroup>
+
+  <ItemGroup Condition="!Exists('$(UnityContainer)')">
+    <PackageReference Include="Unity.Container" Version="$(UnityContainerVersion)" />
+  </ItemGroup>
+  
 
   
 </Project>

@@ -1,18 +1,45 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Unity;
+using Unity.NLog;
 
 namespace NLog.Tests
 {
     [TestClass]
     public class NLogFixture
     {
-        [TestMethod]
-        public void AddExtension()
+        private static IUnityContainer _container;
+        private LoggedType _instance;
+
+        [TestInitialize]
+        public void TestSetup()
         {
+            _container = new UnityContainer();
+            _container.AddNewExtension<NLogExtension>();
+            _instance = _container.Resolve<LoggedType>();
+        }
+
+
+        [TestMethod]
+        public void NLog_can_resolve_test_type()
+        {
+            Assert.IsNotNull(_instance);
+            Assert.IsNotNull(_instance.ResolvedLogger);
+            Assert.IsNotNull(_instance.StaticLogger);
+            Assert.AreSame(_instance.ResolvedLogger, _instance.StaticLogger);
+        }
+
+        public class LoggedType
+        {
+            public LoggedType(ILogger log)
+            {
+                ResolvedLogger = log;
+                StaticLogger = LogManager.GetCurrentClassLogger();
+            }
+
+            public ILogger ResolvedLogger { get; }
+
+
+            public ILogger StaticLogger { get; }
         }
     }
 }
