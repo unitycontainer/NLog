@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <Version>1.0.0</Version>
-    <PackageReleaseNotes>This package is compatible with Unity.</PackageReleaseNotes>
+    <PackageReleaseNotes>This package is distributed as .NET 4.0, 4.5, 4.7 package</PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup>
