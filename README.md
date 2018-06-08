@@ -19,15 +19,26 @@ Install-Package Unity.NLog
 container = new UnityContainer();
 container.AddNewExtension<NLogExtension>();
 ```
-- Where required add `ILog` interface to resolved constructor. 
+- Where required add `ILogger` interface to resolved constructor. 
 
 ```C#
 public class LoggedType
 {
-    public LoggedType(ILog log)
+    public LoggedType(ILogger log)
     {
     }
   ...
 }
 ```
+
+- If you want to custom the extension (In this case, get only the class name instead of the full name), you have to 
+instantiate NLogExtension to set properties and add this extension to Unity
+
+```C#
+var ext = new NLogExtension{
+    GetName = (t, n) => t.Name
+};
+container.AddExtension(ext);
+```
+
 - Log normally...
