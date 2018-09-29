@@ -17,7 +17,8 @@ namespace Unity.NLog
             Context.Policies.Set(typeof(ILogger), null, typeof(IBuildPlanPolicy), this);
         }
 
-        public void BuildUp(IBuilderContext context)
+        public void BuildUp<TBuilderContext>(ref TBuilderContext context)
+            where TBuilderContext : IBuilderContext
         {
             Func<Type, string, string> method = GetName ?? _defaultGetName;
             context.Existing = LogManager.GetLogger(method(context.ParentContext?.BuildKey.Type,
