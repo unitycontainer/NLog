@@ -21,8 +21,8 @@ namespace Unity.NLog
             where TBuilderContext : IBuilderContext
         {
             Func<Type, string, string> method = GetName ?? _defaultGetName;
-            context.Existing = LogManager.GetLogger(method(context.ParentContext?.BuildKey.Type,
-                                                           context.ParentContext?.BuildKey.Name));
+            context.Existing = LogManager.GetLogger(method(context.ParentContext?.Type,
+                                                           context.ParentContext?.Name));
             context.BuildComplete = true;
         }
     }
