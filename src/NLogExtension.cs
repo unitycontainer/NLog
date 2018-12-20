@@ -20,8 +20,8 @@ namespace Unity.NLog
         public void BuildUp(ref BuilderContext context)
         {
             Func<Type, string, string> method = GetName ?? _defaultGetName;
-            context.Existing = LogManager.GetLogger(method(context.ParentContext?.Type,
-                                                           context.ParentContext?.Name));
+            context.Existing = LogManager.GetLogger(method(context.Parent?.Type,
+                                                           context.Parent?.Name));
             context.BuildComplete = true;
         }
     }
