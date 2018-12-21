@@ -8,9 +8,9 @@ namespace Unity.NLog
 {
     public class NLogExtension : UnityContainerExtension, IBuildPlanPolicy
     {
-        private static readonly Func<Type, string, string> _defaultGetName = (t, n) => t.FullName;
+        private static readonly Func<Type, string> _defaultGetName = (t) => t.FullName;
 
-        public Func<Type, string, string> GetName { get; set; }
+        public Func<Type, string> GetName { get; set; }
 
         protected override void Initialize()
         {
@@ -19,9 +19,8 @@ namespace Unity.NLog
 
         public void BuildUp(ref BuilderContext context)
         {
-            Func<Type, string, string> method = GetName ?? _defaultGetName;
-            context.Existing = LogManager.GetLogger(method(context.Parent?.Type,
-                                                           context.Parent?.Name));
+            Func<Type, string> method = GetName ?? _defaultGetName;
+            context.Existing = LogManager.GetLogger(method(context.DeclaringType));
             context.BuildComplete = true;
         }
     }
