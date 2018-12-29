@@ -6,7 +6,7 @@ using Unity.Policy;
 
 namespace Unity.NLog
 {
-    public class NLogExtension : UnityContainerExtension, IBuildPlanPolicy
+    public class NLogExtension : UnityContainerExtension
     {
         private static readonly Func<Type, string> _defaultGetName = (t) => t.FullName;
 
@@ -14,14 +14,15 @@ namespace Unity.NLog
 
         protected override void Initialize()
         {
-            Context.Policies.Set(typeof(ILogger), null, typeof(IBuildPlanPolicy), this);
+            Context.Policies.Set(typeof(ILogger), null, typeof(ResolveDelegateFactory), (ResolveDelegateFactory)GetResolver);
         }
 
-        public void BuildUp(ref BuilderContext context)
+        public ResolveDelegate<BuilderContext> GetResolver(ref BuilderContext context)
         {
             Func<Type, string> method = GetName ?? _defaultGetName;
-            context.Existing = LogManager.GetLogger(method(context.DeclaringType));
-            context.BuildComplete = true;
+            var DeclaringType = context.DeclaringType;
+
+            return (ref BuilderContext c) => LogManager.GetLogger(method(DeclaringType)); 
         }
     }
 }
