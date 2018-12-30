@@ -38,6 +38,11 @@
     <UnityContainer>..\..\Container\src\Unity.Container.csproj</UnityContainer>
   </PropertyGroup>
 
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
   <ItemGroup Condition="Exists('$(UnityContainer)')">
     <ProjectReference Include="$(UnityContainer)" />
   </ItemGroup>

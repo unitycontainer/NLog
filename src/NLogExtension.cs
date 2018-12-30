@@ -1,11 +1,14 @@
 ﻿using NLog;
 using System;
+using System.Runtime.CompilerServices;
+using System.Security;
 using Unity.Builder;
 using Unity.Extension;
 using Unity.Policy;
 
 namespace Unity.NLog
 {
+    [SecuritySafeCritical]
     public class NLogExtension : UnityContainerExtension
     {
         private static readonly Func<Type, string> _defaultGetName = (t) => t.FullName;
@@ -19,10 +22,16 @@ namespace Unity.NLog
 
         public ResolveDelegate<BuilderContext> GetResolver(ref BuilderContext context)
         {
-            Func<Type, string> method = GetName ?? _defaultGetName;
-            var DeclaringType = context.DeclaringType;
+            var method = GetName ?? _defaultGetName;
+            Type declaringType;
 
-            return (ref BuilderContext c) => LogManager.GetLogger(method(DeclaringType)); 
+            unsafe
+            {
+                var parenContext = Unsafe.AsRef<BuilderContext>(context.Parent.ToPointer());
+                declaringType = parenContext.RegistrationType;
+            }
+
+            return (ref BuilderContext c) => LogManager.GetLogger(method(declaringType)); 
         }
     }
 }
