@@ -5,6 +5,7 @@ using System.Security;
 using Unity.Builder;
 using Unity.Extension;
 using Unity.Policy;
+using Unity.Resolution;
 
 namespace Unity.NLog
 {
