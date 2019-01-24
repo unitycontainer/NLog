@@ -1,6 +1,5 @@
 ﻿using NLog;
 using System;
-using System.Runtime.CompilerServices;
 using System.Security;
 using Unity.Builder;
 using Unity.Extension;
@@ -24,13 +23,7 @@ namespace Unity.NLog
         public ResolveDelegate<BuilderContext> GetResolver(ref BuilderContext context)
         {
             var method = GetName ?? _defaultGetName;
-            Type declaringType;
-
-            unsafe
-            {
-                var parenContext = Unsafe.AsRef<BuilderContext>(context.Parent.ToPointer());
-                declaringType = parenContext.RegistrationType;
-            }
+            Type declaringType = context.DeclaringType;
 
             return (ref BuilderContext c) => LogManager.GetLogger(method(declaringType)); 
         }

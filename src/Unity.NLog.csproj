@@ -20,7 +20,6 @@
     <AssemblyOriginatorKeyFile>package.snk</AssemblyOriginatorKeyFile>
     <DelaySign>false</DelaySign>
     <RootNamespace>Unity.NLog</RootNamespace>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
