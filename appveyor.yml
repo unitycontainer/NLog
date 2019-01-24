@@ -18,7 +18,7 @@ build:
   verbosity: minimal
 
 test_script:
-- cmd: dotnet test --framework net47 --verbosity q
+- cmd: dotnet test --framework net46 --verbosity q
 
 artifacts:
 - path: '**\Unity.*.nupkg'
