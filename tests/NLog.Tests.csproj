@@ -3,7 +3,7 @@
   <Import Project="..\package.props" />
 
   <PropertyGroup>
-    <TargetFramework>net47</TargetFramework>
+    <TargetFramework>net46</TargetFramework>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
