@@ -25,7 +25,11 @@ namespace Unity.NLog
             var method = GetName ?? _defaultGetName;
             Type declaringType = context.DeclaringType;
 
-            return (ref BuilderContext c) => LogManager.GetLogger(method(declaringType)); 
+            return (ref BuilderContext c) =>
+                {
+                    var declaringType = c.DeclaringType;
+                    return  LogManager.GetLogger(method(declaringType));
+                };
         }
     }
 }
