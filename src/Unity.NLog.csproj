@@ -20,16 +20,15 @@
     <AssemblyOriginatorKeyFile>package.snk</AssemblyOriginatorKeyFile>
     <DelaySign>false</DelaySign>
     <RootNamespace>Unity.NLog</RootNamespace>
+    <TargetFrameworks>netstandard2.0;net6.0</TargetFrameworks>
   </PropertyGroup>
   
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <TargetFrameworks>net45;net46;net47</TargetFrameworks>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-    <TargetFramework>net46</TargetFramework>
     <DebugType>Full</DebugType>
   </PropertyGroup>
 
@@ -49,7 +48,7 @@
 
 
   <ItemGroup>
-    <PackageReference Include="NLog" Version="4.6.2" />
+    <PackageReference Include="NLog" Version="5.1.2" />
   </ItemGroup>
 
   <!-- Sourcelink -->
