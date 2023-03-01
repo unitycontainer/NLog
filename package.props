@@ -1,13 +1,15 @@
 <Project>
 
-  <PropertyGroup>
-    <Version>5.11.1</Version>
-    <PackageReleaseNotes>This package is distributed as .NET 4.0, 4.5, 4.6, 4.7 package.</PackageReleaseNotes>
-  </PropertyGroup>
+	<PropertyGroup>
 
-  <PropertyGroup>
-    <UnityAbstractionsVersion>5.11.*</UnityAbstractionsVersion>
-    <UnityContainerVersion>5.11.*</UnityContainerVersion>
-  </PropertyGroup>
+		<VersionMajor>6</VersionMajor>
+		<VersionMinor>0</VersionMinor>
+		<VersionPatch>0</VersionPatch>
+		<VersionSuffix>rc1</VersionSuffix>
+
+		<TargetFrameworks>netstandard2.0;net6.0</TargetFrameworks>
+
+	</PropertyGroup>
 
 </Project>
+

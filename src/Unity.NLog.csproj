@@ -2,7 +2,9 @@
 
   <Import Project="..\package.props" />
 
-  <PropertyGroup>
+	<!-- Package Info -->
+
+	<PropertyGroup>
     <FileVersion>$(Version).0</FileVersion>
     <AssemblyVersion>$(Version).0</AssemblyVersion>
     <PackageId>Unity.NLog</PackageId>
@@ -20,7 +22,14 @@
     <AssemblyOriginatorKeyFile>package.snk</AssemblyOriginatorKeyFile>
     <DelaySign>false</DelaySign>
     <RootNamespace>Unity.NLog</RootNamespace>
-    <TargetFrameworks>netstandard2.0;net6.0</TargetFrameworks>
+	  
+    <Version>$(VersionMajor).$(VersionMinor).$(VersionPatch)</Version>
+	<VersionBuild Condition="'$(VersionBuild)' == ''">0</VersionBuild>
+	<FileVersion>$(Version).$(VersionBuild)</FileVersion>
+    <AssemblyVersion>$(Version).$(VersionBuild)</AssemblyVersion>
+	<PackageVersion Condition="'$(VersionSuffix)' == ''">$(Version)</PackageVersion>
+    <PackageVersion Condition="'$(VersionSuffix)' != ''">$(Version)-$(VersionSuffix)</PackageVersion>
+
   </PropertyGroup>
   
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
@@ -43,7 +52,7 @@
   </ItemGroup>
 
   <ItemGroup Condition="!Exists('$(UnityContainer)')">
-    <PackageReference Include="Unity.Container" Version="$(UnityContainerVersion)" />
+    <PackageReference Include="Unity.Container" Version="$(VersionMajor).$(VersionMinor).*-*" />
   </ItemGroup>
 
 
@@ -52,6 +61,7 @@
   </ItemGroup>
 
   <!-- Sourcelink -->
+	
   <PropertyGroup>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
@@ -64,5 +74,16 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
   </ItemGroup>
+
+  <!-- Release Notes -->
+
+  <Target Name="PreparePackageReleaseNotesFromFile" BeforeTargets="GenerateNuspec">
+    <ReadLinesFromFile File="../RELEASE-NOTES.txt">
+      <Output TaskParameter="Lines" ItemName="ReleaseNoteLines" />
+    </ReadLinesFromFile>
+    <PropertyGroup>
+      <PackageReleaseNotes>@(ReleaseNoteLines, '%0a')</PackageReleaseNotes>
+    </PropertyGroup>
+  </Target>
 
 </Project>
