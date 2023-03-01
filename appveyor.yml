@@ -21,4 +21,4 @@ build:
 
 artifacts:
 - path: '**\Unity.*.nupkg'
-  name: 'Container'
+  name: 'NLog'

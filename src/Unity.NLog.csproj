@@ -2,9 +2,10 @@
 
   <Import Project="..\package.props" />
 
-	<!-- Package Info -->
+  <!-- Package Info -->
 
-	<PropertyGroup>
+  <PropertyGroup>
+	  
     <FileVersion>$(Version).0</FileVersion>
     <AssemblyVersion>$(Version).0</AssemblyVersion>
     <PackageId>Unity.NLog</PackageId>
